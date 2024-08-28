@@ -1,4 +1,7 @@
+import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { App } from './app';
+import { isDevelopmentEnv } from './shared/utilities/env';
 
 const render = () => {
   const container = document.querySelector('#app');
@@ -9,7 +12,15 @@ const render = () => {
 
   const root = createRoot(container);
 
-  root.render(<p>Application</p>);
+  if (isDevelopmentEnv()) {
+    root.render(
+      <StrictMode>
+        <App />
+      </StrictMode>
+    );
+  } else {
+    root.render(<App />);
+  }
 };
 
 render();

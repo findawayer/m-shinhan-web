@@ -4,11 +4,13 @@
   "main": "src/main.tsx",
   "license": "MIT",
   "scripts": {
-    "build": "vite build",
-    "dev": "vite",
+    "build": "npm run build-routes && vite build",
+    "build-routes": "tsr generate",
     "lint": "eslint --cache . --ext .js,.ts,.tsx --fix",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "watch": "concurrently \"npm:watch-routes\" \"vite\"",
+    "watch-routes": "tsr watch"
   },
   "engineStrict": true,
   "engines": {
@@ -21,6 +23,9 @@
     "@babel/core": "7.24.9",
     "@babel/preset-env": "7.24.8",
     "@babel/preset-typescript": "^7.24.7",
+    "@tanstack/router-cli": "^1.51.0",
+    "@tanstack/router-devtools": "^1.51.0",
+    "@tanstack/router-plugin": "^1.51.0",
     "@types/babel__core": "^7",
     "@types/babel__preset-env": "^7",
     "@types/node": "^22.5.0",
@@ -33,6 +38,7 @@
     "autoprefixer": "10.4.19",
     "class-variance-authority": "0.7.0",
     "classnames": "2.5.1",
+    "concurrently": "^8.2.2",
     "eslint": "9.7.0",
     "eslint-config-prettier": "9.1.0",
     "eslint-import-resolver-typescript": "3.6.1",
@@ -55,10 +61,13 @@
     "typescript": "5.5.4",
     "vite": "5.3.5",
     "vite-plugin-svgr": "4.2.0",
-    "vite-tsconfig-paths": "4.3.2"
+    "vite-tsconfig-paths": "4.3.2",
+    "zod": "^3.23.8"
   },
   "dependencies": {
     "@hookform/resolvers": "3.9.0",
+    "@react-aria/toast": "3.0.0-beta.15",
+    "@react-stately/toast": "3.0.0-beta.5",
     "@tanstack/react-query": "5.51.11",
     "@tanstack/react-router": "1.45.0",
     "axios": "^1.7.5",

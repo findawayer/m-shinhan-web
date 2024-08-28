@@ -134,4 +134,7 @@ dist
 .env.*
 
 # Editor settings
-.vscode
+.vscode/
+
+# Compiled output
+build/

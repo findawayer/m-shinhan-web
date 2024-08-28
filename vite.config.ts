@@ -1,5 +1,6 @@
-import legacy from '@vitejs/plugin-legacy';
-import react from '@vitejs/plugin-react';
+import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
+import viteLegacy from '@vitejs/plugin-legacy';
+import viteReact from '@vitejs/plugin-react';
 import { type UserConfig } from 'vite';
 import svgr from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -13,6 +14,26 @@ export default {
     minify: 'terser',
     outDir: 'build',
     target: 'es2015',
+    rollupOptions: {
+      output: {
+        manualChunks: (id) => {
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+          if (id.includes('src/pages')) {
+            // src/pages/login/index.tsx -> pages-login
+            // src/pages/login/-form.tsx -> pages-login
+            const prefix = 'src/pages';
+            const pageName = id
+              .slice(id.indexOf(prefix) + prefix.length)
+              .split('/')
+              .at(0);
+
+            return `pages-${pageName}`;
+          }
+        },
+      },
+    },
     // minifier Terser 설정 https://terser.org/docs/options/
     terserOptions: {
       compress: {
@@ -33,13 +54,14 @@ export default {
     svgr({
       include: '**/*.svg?react',
     }),
-    react({
+    TanStackRouterVite(),
+    viteReact({
       babel: {
         babelrc: true,
       },
     }),
     {
-      ...legacy({
+      ...viteLegacy({
         targets: ['last 4 versions and not dead', 'not IE 11'],
       }),
       apply: 'build',
