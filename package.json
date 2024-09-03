@@ -4,20 +4,16 @@
   "main": "src/main.tsx",
   "license": "MIT",
   "scripts": {
-    "build": "npm run build-routes && vite build",
+    "build": "pnpm build-routes && vite build",
     "build-routes": "tsr generate",
     "lint": "eslint --cache . --ext .js,.ts,.tsx --fix",
+    "preinstall": "npx only-allow pnpm",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit",
     "watch": "concurrently \"npm:watch-routes\" \"vite\"",
     "watch-routes": "tsr watch"
   },
-  "engineStrict": true,
-  "engines": {
-    "node": ">=20.15.0",
-    "yarn": ">=4.4.1"
-  },
-  "packageManager": "yarn@4.4.1",
+  "packageManager": "pnpm@9.9.0",
   "type": "module",
   "devDependencies": {
     "@babel/core": "7.24.9",
@@ -71,6 +67,7 @@
     "@tanstack/react-query": "5.51.11",
     "@tanstack/react-router": "1.45.0",
     "axios": "^1.7.5",
+    "clsx": "^2.1.1",
     "react": "18.3.1",
     "react-aria": "3.34.1",
     "react-aria-components": "1.3.1",
